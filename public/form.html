@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="//code.jquery.com/jquery.js"></script>
+
+    <title>add reservation</title>
+  </head>
+  <body>
+    <h1>do u wanna play a game</h1>
+    <div>name: <input type="text" id="customerName" /></div>
+
+    <div>email: <input type="text" id="customerEmail" /></div>
+
+    <div>id: <input type="text" id="customerId" /></div>
+
+    <div>phone: <input type="text" id="customerPhone" /></div>
+
+    <button class="js-submit">send reservation</button>
+    <script>
+      //event
+      $(".js-submit").on("click", event => {
+        //get form data make it object
+        const newReservation = {
+          customerName: $("#customerName")
+            .val()
+            .trim(),
+          customerId: $("#customerEmail")
+            .val()
+            .trim(),
+          customerEmail: $("#customerId")
+            .val()
+            .trim(),
+          customerPhone: $("#customerPhone")
+            .val()
+            .trim()
+        };
+        //get data from form
+        $.post("/api/tables", newReservation, data => {
+          console.log(data);
+          if (data) {
+            alert("congrats u  made the window table");
+          } else {
+            alert("pls wait by the aquarium");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

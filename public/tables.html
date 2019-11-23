@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="//code.jquery.com/jquery.js"></script>
+    <title>tables</title>
+  </head>
+  <body>
+    <h1>current reservations</h1>
+    <div class="js-rsvp">this line will get replaced w/ table data</div>
+    <div class="js-waitlist">this line will get replaced w/ table data</div>
+
+    <script>
+      $.get("/api/rsvp").then(rsvp => {
+        //get raw data
+        console.log(rsvp);
+        //parse
+        let allTablesDiv = "";
+        rsvp.forEach(reservation => {
+          let tableDiv = `
+          <div>${reservation.customerName}</div>
+          <div>${reservation.customerEmail}</div>
+          <div>${reservation.customerId}</div>
+          <div>${reservation.customerPhone}</div>
+          `;
+          allTablesDiv += tableDiv;
+        });
+
+        //render to html
+        $(".js-rsvp").html(allTablesDiv);
+      });
+
+      //wait list
+      $.get("/api/waitlist").then(waitlist => {
+        //get raw data
+        console.log(waitlist);
+        //parse
+        let allTablesDiv = "";
+        waitlist.forEach(reservation => {
+          let tableDiv = `
+          <div>${reservation.customerName}</div>
+          <div>${reservation.customerEmail}</div>
+          <div>${reservation.customerId}</div>
+          <div>${reservation.customerPhone}</div>
+          `;
+          allTablesDiv += tableDiv;
+        });
+
+        //render to html
+        $(".js-waitlist").html(allTablesDiv);
+      });
+    </script>
+  </body>
+</html>
